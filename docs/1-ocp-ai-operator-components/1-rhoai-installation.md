@@ -10,21 +10,19 @@ The Operator acts as the control plane for all AI services. We will install it u
 2. Navigate to **Ecosystem** → **Software Catalog** (or **Operators** → **OperatorHub** depending on your specific console configuration).
 3. Search for  and click the tile.
 
-![openshift-ai-operator.png](images/rhoai-install-1.png)
+![openshift-ai-operator.png](images/v35-rhoai-operator-catalog.png)
 4. Click  **Install** .
 
-![openshift-ai-operator.png](images/rhoai-install-2.png)
+![openshift-ai-operator.png](images/v35-rhoai-channel.png)
 5. On the Install Operator page:
 
-* **Update channel:** Select `stable-3.3`.
+* **Update channel:** Select `stable-3.x`.
 * **Installation mode:** `All namespaces on the cluster`.
 * **Installed Namespace:** Select `Operator recommended Namespace: redhat-ods-operator`.
 * **Update approval:** Select `Automatic`.
 
-![openshift-ai-operator.png](images/rhoai-install-3.png)
+![openshift-ai-operator.png](images/v35-rhoai-operator-install.png)
 6. Click **Install** and wait for the status to change to  **Succeeded** .
-
-![openshift-ai-operator.png](images/rhoai-install-4.png)
 
 7. Besides the console, check the operator's pods in the target namespace to verify its status:
 
@@ -43,7 +41,7 @@ The Operator acts as the control plane for all AI services. We will install it u
 
 8. Switch to  Operator interface by navigating to: **Ecosystem** → **Installed Operators** → **Red Hat OpenShift AI**.
 
-![openshift-ai-operator.png](images/rhoai-dsc-1.png)
+![openshift-ai-operator.png](images/v35-rhoai-operator.png)
 
 ## Verify the Environment Initialization (DSCInitialization)
 
@@ -83,41 +81,45 @@ The `DataScienceCluster` (DSC) resource is the main configuration file where you
     - TrustyAI
 
 ```yaml
-  kind: DataScienceCluster
-  apiVersion: datasciencecluster.opendatahub.io/v2
-  metadata:
-    name: default-dsc
-    labels:
-      app.kubernetes.io/name: datasciencecluster
-  spec:
-    components:
-      dashboard:
-        managementState: Managed
-      aipipelines:
-        managementState: Managed
-      feastoperator:
-        managementState: Removed
-      kserve:
-        managementState: Managed
-      llamastackoperator:
-        managementState: Removed
-      kueue:
-        managementState: Removed
-      mlflowoperator:
-        managementState: Removed
-      modelregistry:
-        managementState: Removed # We will activate this in the configuration lab
-        registriesNamespace: rhoai-model-registries
-      ray:
-        managementState: Removed
-      workbenches:
-        managementState: Managed
-      trainer:
-        managementState: Removed
-      trainingoperator:
-        managementState: Removed
-      trustyai:
-        managementState: Managed # We will deactivate this in the configuration lab
+kind: DataScienceCluster
+apiVersion: datasciencecluster.opendatahub.io/v2
+metadata:
+  name: default-dsc
+  labels:
+    app.kubernetes.io/name: datasciencecluster
+spec:
+  components:
+    dashboard:
+      managementState: Managed
+    aipipelines:
+      managementState: Managed
+    feastoperator:
+      managementState: Managed
+    kserve:
+      managementState: Managed
+    llamastackoperator:
+      managementState: Removed
+    ogx:
+      managementState: Managed
+    kueue:
+      managementState: Removed
+    mlflowoperator:
+      managementState: Managed
+    sparkoperator:
+      managementState: Removed
+    modelregistry:
+      managementState: Managed
+      registriesNamespace: rhoai-model-registries
+    ray:
+      managementState: Managed
+    workbenches:
+      managementState: Managed
+    trainer:
+      managementState: Managed
+    trainingoperator:
+      managementState: Removed
+    trustyai:
+      managementState: Managed
 ```
 
 5. Click  **Create** .
@@ -138,6 +140,6 @@ The `DataScienceCluster` (DSC) resource is the main configuration file where you
    * In the Web Console, navigate to **Workloads** → **Pods** in the `redhat-ods-applications` project.
    * Ensure that the `rhods-dashboard` and `data-science-pipeline-operator` pods are  **Running** .
 
-  ![openshift-ai-operator.png](images/rhoai-status.png)
+  ![openshift-ai-operator.png](images/v35-rhoai-pods.png)
 
 **Congratulations!** You have successfully completed the Operator and foundational setup.
