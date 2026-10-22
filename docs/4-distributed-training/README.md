@@ -23,6 +23,7 @@ This module builds on a cluster with OpenShift AI and GPU accelerators already c
 * Red Hat OpenShift AI 3.3+
 * Accelerators configured (NVIDIA GPU Operator and cluster policy)
 * Node Feature Discovery Operator installed
+* JobSet Operator installed
 
 > The required components are fully available within the "Red Hat OpenShift AI 3" catalog item on demo.redhat.com and it is possible to find the content slides in the following [link](https://docs.google.com/presentation/d/1huYUx2eKdKCgHiuiWHNJM_-3IHhdsR022Sm_Yug5Kf0/edit?usp=sharing) 
 
