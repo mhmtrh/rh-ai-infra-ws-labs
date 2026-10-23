@@ -13,6 +13,38 @@ The DSC resource is the "source of truth" for which AI services are active.
 5. Click the name of your instance (e.g., `default-dsc`).
 6. Select the **YAML** tab. This is where we will perform our configurations.
 
+## Enabling Data Science Pipelines
+
+Data Science Pipelines represent the core framework for driving automated MLOps practices. Integrated within OpenShift AI, these tooling components allow users to streamline end-to-end model training, validation, building, deployment, and ongoing monitoring.
+
+To provision this feature in OpenShift AI, update the existing DataScienceCluster instance. Please execute the following sequence to complete the pipeline setup:
+
+First, log into the OpenShift AI dashboard and verify active settings under the `Develop & Train` section.
+
+![openshift-ai-operator.png](images/rhoai-ai-pipelines.png)
+
+Once verified, proceed to provision and deploy the `AI Pipelines` infrastructure:
+
+1. Open the OpenShift Web Console and locate the `DataScienceCluster` manifest and go inside the `YAML` editor view.
+2. Within the configuration block, locate the `aipipelines` spec attribute.
+3. Update the corresponding `managementState` value from `Removed` to `Managed`.
+4. Confirm the YAML definitions align with the given layout:
+
+   ```yaml
+    aipipelines:
+      managementState: Managed
+   ```
+5. Select `Save` to apply modifications.
+6. Deployment Verification: Inspect `Workloads` -> `Pods` inside the target `redhat-ods-applications` namespace.
+
+   * Verify that the target `data-science-pipelines-operator-controller-manager` instances spin up successfully and reach a ready `Running` status.
+
+![openshift-ai-operator.png](images/rhoai-pipeline-operator-pod.png)
+
+Return to the OpenShift AI dashboard to review the updated `Develop & Train` view. You should now observe the active `Pipelines` section, enabling teams to build and execute workspace pipelines directly.
+
+![openshift-ai-operator.png](images/rhoai-ai-pipelines-ok.png)
+
 ## Activating the Model Registry
 
 The Model Registry is a vital part of the MLOps workflow, acting as a central repository for model metadata, versioning, and tracking.
@@ -34,19 +66,26 @@ To activate the Model Registry and transition it to a functional state, perform 
 
    * Confirm that the `model-registry-service` pods initialize and eventually reach a **Running** state
 
-![openshift-ai-operator.png](images/rhoai-model-registry.png)
+![openshift-ai-operator.png](images/v35-rhoai-model-registry.png)
 
 ## Lifecycle Management (Resource Removal)
 
 Infrastructure efficiency often requires removing unused services. In this task, you will disable a component to observe how the Operator automatically reclaims resources and executes its cleanup logic:
 
-1. In the YAML editor for `default-dsc`, locate the `trustyai` component.
-2. Change the `managementState` from `Managed` to `Removed`.
-3. Click  **Save** .
-4. **Verification:** * Navigate to **Workloads** → **Pods** in the `redhat-ods-applications` project.
+First, log into the OpenShift Console and verify active `trustyai` component pods under the `redhat-ods-applications` namespace.
+
+![openshift-ai-operator.png](images/rhoai-trustyai.png)
+
+Once verified, proceed to decommission the `trustyai` component:
+
+1. Open the OpenShift Web Console and locate the `DataScienceCluster` manifest and go inside the `YAML` editor view.
+2. In the YAML editor for `default-dsc`, locate the `trustyai` component.
+3. Change the `managementState` from `Managed` to `Removed`.
+4. Click  **Save** .
+5. **Verification:** * Navigate to **Workloads** → **Pods** in the `redhat-ods-applications` project.
    * Observe that the `trustyai-service` pods are being terminated and removed.
 
-![openshift-ai-operator.png](images/rhoai-trusty-removed.png)
+![openshift-ai-operator.png](images/v35-rhoai-trusty-removed.png)
 
 ## Troubleshooting Logic
 

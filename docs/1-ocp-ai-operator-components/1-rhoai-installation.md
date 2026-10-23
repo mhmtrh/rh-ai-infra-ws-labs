@@ -92,7 +92,7 @@ spec:
     dashboard:
       managementState: Managed
     aipipelines:
-      managementState: Managed
+      managementState: Removed
     feastoperator:
       managementState: Managed
     kserve:
@@ -108,14 +108,13 @@ spec:
     sparkoperator:
       managementState: Removed
     modelregistry:
-      managementState: Managed
-      registriesNamespace: rhoai-model-registries
+      managementState: Removed
     ray:
-      managementState: Managed
+      managementState: Removed
     workbenches:
       managementState: Managed
     trainer:
-      managementState: Managed
+      managementState: Removed
     trainingoperator:
       managementState: Removed
     trustyai:
