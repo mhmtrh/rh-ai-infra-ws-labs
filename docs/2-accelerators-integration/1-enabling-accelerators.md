@@ -453,10 +453,12 @@ vi /tmp/clusterpolicy.json
     "driver": {
       "repository": "nvcr.io/nvidia",  #<--- Add this line
       "image": "driver",               #<--- Add this line
-      "version": "570.172.08",         #<--- Add this line
+      "version": "615.71.09",         #<--- Add this line
 ...      
 }
 ```
+
+?> It is possible to verify versions in [NVIDIA GPU Operator Versioning](https://docs.nvidia.com/datacenter/cloud-native/gpu-operator/latest/platform-support.html)
 
 7. Apply the cluster policy file:
 
