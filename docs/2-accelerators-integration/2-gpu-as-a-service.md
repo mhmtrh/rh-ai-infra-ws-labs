@@ -461,7 +461,7 @@ metadata:
   annotations:
     opendatahub.io/apiProtocol: REST
     opendatahub.io/recommended-accelerators: '["nvidia.com/gpu"]'
-    opendatahub.io/runtime-version: v3.2.4
+    opendatahub.io/runtime-version: v3.3.0
     opendatahub.io/serving-runtime-scope: global
     openshift.io/display-name: RHAIIS (vLLM) NVIDIA GPU ServingRuntime for KServe
     openshift.io/template-display-name: RHAIIS (vLLM) NVIDIA GPU ServingRuntime for KServe
@@ -491,7 +491,7 @@ spec:
       value: "1"
     - name: VLLM_NO_USAGE_STATS
       value: "1"
-    image: registry.redhat.io/rhaiis/vllm-cuda-rhel9:3.2.4
+    image: registry.redhat.io/rhaiis/vllm-cuda-rhel9:3.3.0
     name: kserve-container
     ports:
     - containerPort: 8000
